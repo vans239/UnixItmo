@@ -1,5 +1,6 @@
 
 #!/bin/bash
+<<<<<<< HEAD
 
 # $1 - link to download
 # $2 - optional referer link
@@ -33,6 +34,8 @@ function downloadLink() {
 	return 0
 }
 
+=======
+>>>>>>> 63ba6ad68d9c14adb0846173fecc11bbf43a4dfc
 #TODO bad reading need "~/.fetch4me"
 QQEDIR=`cat ~/.fetch4merc | grep QQEDIR | awk '{ split ($0, arr, "="); print arr[2]; }'`
 GETELEMFUNC=`cat ~/.fetch4merc | grep GETELEMFUNC | awk '{ split ($0, arr, "="); print arr[2]; }'`
@@ -91,6 +94,7 @@ fi
 
 PID="$QQEDIR/fetch4me.pid"
 LOCK="$QQEDIR/fetch4me.lock"
+<<<<<<< HEAD
 
 downloadLink http://yahoo.com http://by.com
  
@@ -105,13 +109,27 @@ if [ -f $PID ]; then
 		echo "Daemon is alive. I will die"
 		#TODO add links
 		exit 0
+=======
+echo $PID
+if [ -e $PID ]; then
+	echo "Daemon exist"
+	read pid < $PID	
+	isAlive=`ps $pid | grep $pid | awk '{ print $1; }'`
+	if [ -z $isAlive ]; then
+		echo "Daemon was crashed"
+	else
+		echo "Daemon is alive. I will die"
+>>>>>>> 63ba6ad68d9c14adb0846173fecc11bbf43a4dfc
 	fi
 
 else
 	echo "Daemon doesn't exist"
 	#trap "echo 'fuck off'" SIGHUP
 fi
+<<<<<<< HEAD
 
+=======
+>>>>>>> 63ba6ad68d9c14adb0846173fecc11bbf43a4dfc
 ##
 ## TODO: search for "fetch4me.lock" in QQEDIR, if there is one - 
 ## look at PID and find out, is the daemon running or has it crashed
@@ -128,3 +146,24 @@ fi
 ## TODO: 'df -h' to find out, if there's enough space on disk. If not - exit 1.
 ##
 
+<<<<<<< HEAD
+=======
+##
+## Below is some shit for copy-pasting useful code)
+##
+
+aaa=`ps -e | grep fetch4me | grep -v "grep" | awk '{print $1;}'`
+echo $aaa
+if [ -z "$aaa" ]; then
+	echo "daemon is already running"
+else
+	echo "trap"
+	#trap "echo 'fuck off'" SIGHUP
+fi
+#while [ 1 -gt 0 ]; do
+#	sleep 1;
+#done
+function downloadLink() {
+	echo 1
+}
+>>>>>>> 63ba6ad68d9c14adb0846173fecc11bbf43a4dfc
