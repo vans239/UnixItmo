@@ -1,0 +1,130 @@
+
+#!/bin/bash
+
+# $1 - link to download
+# $2 - optional referer link
+function downloadLink() {
+	DOWNLOADPATH=~/Downloads/fetched4you
+	echo $DOWNLOADPATH
+	if  [ ! -d $DOWNLOADPATH ]; then
+		echo 1
+		mkdir $DOWNLOADPATH
+		echo "Created fetched4you"
+	fi
+	exit 0	
+	if [ $2 ]; then
+		donwloadpath=$DOWNLOADPATH/'"'$2'"'
+		if [ ! -d $downloadpath ]; then
+			mkdir $downloadpath
+			echo "Created $2"	
+		fi
+		downloadpath=$downloadpath/'"'$1'"'
+		if [ ! -d $downloadpath ]; then
+			mkdir $donwloadpath
+			echo "Created $1"
+		fi
+		wget -P $downloadpath --referer=$2 $1
+	else
+		downloadpath=$DOWNLOADPATH/'"'$1'"'		
+		wget -P $downloadpath--referer=$2 $1	
+	fi
+	echo $downloadpath
+
+	return 0
+}
+
+#TODO bad reading need "~/.fetch4me"
+QQEDIR=`cat ~/.fetch4merc | grep QQEDIR | awk '{ split ($0, arr, "="); print arr[2]; }'`
+GETELEMFUNC=`cat ~/.fetch4merc | grep GETELEMFUNC | awk '{ split ($0, arr, "="); print arr[2]; }'`
+FIRSTARG=0
+
+if [ "$1" = "-w" ]; then
+	QQEDIR=$2
+	FIRSTARG=2
+	if [ "$3" = "-r" ]; then
+		REFERRER=$4
+		FIRSTARG=4
+	fi
+elif [ "$1" = "-r" ]; then
+	REFERRER=$2
+	FIRSTARG=2
+	if [ "$3" = "-w" ]; then
+		QQEDIR=$4
+		FIRSTARG=4
+	fi
+fi
+
+if [ -z $QQEDIR ]; then
+	QQEDIR="~/.fetch4me"
+fi 	
+
+if [ -z $GETELEMFUNC ]; then
+	GETELEMFUNC="wget"
+fi
+
+echo "QQEDIR = $QQEDIR"
+echo "GETELEMFUNC=$GETELEMFUNC"
+echo "REFFER=$REFFER"
+
+for X in "$@"
+do
+  echo ${!X}
+done
+
+#ARGS=("$@")
+#for (( i=$FIRSTARG; i<${#ARGS[@]}; i++)); do
+#    echo ${ARGS[${i}]}
+#done 
+
+if [ ! -d $QQEDIR ]; then
+	echo "QQEDIR doesn't  exist: $QQEDIR"
+	exit 1 
+fi 
+if [ -z `which $GETELEMFUNC | awk '{ print $1; }'` ]; then 
+	echo "GETELEMFUNC doesn't exist: $GETELEMFUNC"
+	exit 1
+fi
+
+##
+## TODO: check, if REFERRER is correct URL. If not - exit 1.
+##
+
+PID="$QQEDIR/fetch4me.pid"
+LOCK="$QQEDIR/fetch4me.lock"
+
+downloadLink http://yahoo.com http://by.com
+ 
+if [ -f $PID ]; then
+	echo "Daemon exist"
+	read pid < $PID	
+	isAlive=`ps $pid | grep $pid | grep 'fetch4me' | awk '{ print $1; }'`
+	if [ -z $isAlive ]; then
+		echo "Daemon was crashed"
+		#TODO add links
+	else
+		echo "Daemon is alive. I will die"
+		#TODO add links
+		exit 0
+	fi
+
+else
+	echo "Daemon doesn't exist"
+	#trap "echo 'fuck off'" SIGHUP
+fi
+
+##
+## TODO: search for "fetch4me.lock" in QQEDIR, if there is one - 
+## look at PID and find out, is the daemon running or has it crashed
+## If process is running - add new files to QQEDIR and exit 0. If not - try to 
+## restart unfinished downloads, generate new lock file. Daemonize.
+## If there's new lock file - generate new queue, daemonize.
+##
+
+##
+## TODO: process all files from QQEDIR
+##
+
+##
+## TODO: 'df -h' to find out, if there's enough space on disk. If not - exit 1.
+##
+
