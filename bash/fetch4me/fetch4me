@@ -1,5 +1,5 @@
 
-#!/bin/bash
+#!/bin/bash -e
 
 # $1 - lock file dir
 function lock(){
@@ -79,9 +79,9 @@ function downloadLink() {
 
 	status $1/.status $downloadpath $1 
 	if [ $3 ]; then
-		`$GETELEMFUNC -q -P $downloadpath --referer=$3 $2`
+		`$GETELEMFUNC -c -q -P $downloadpath --referer=$3 $2`
 	else
-		`$GETELEMFUNC -q -P $downloadpath $2`
+		`$GETELEMFUNC -c -q -P $downloadpath $2`
 	fi
 	if [ $? -ne 0 ]; then
 		echo "Error: problem with processing $2 via $GETLEMFUNC to $downloadpath" >> $1/.status
@@ -118,7 +118,7 @@ function daemonazing(){
 	if [ -f $PID ]; then
 		echo "Other daemon was here"
 		read pid < $PID				
-		isAlive=`ps $pid | grep $pid | awk '{ print $1; }'`
+		isAlive=`ps $pid | grep $pid | grep S+ | awk '{ print $1; }'`
 		if [ -z $isAlive ]; then
 			echo "Other daemon was crashed"
 			#adding interrupted link
@@ -134,7 +134,10 @@ function daemonazing(){
 		echo "Other daemon doesn't exist"
 	fi
 	
-	#daemonizing)
+	#daemonizing
+	if [ -f $1/.fetch4me.lock ] ; then
+		rm -rf $1/.fetch4me.lock 	
+	fi
 	echo $$ > $1/.fetch4me.pid 
 	trap "echo 'I am alive!!!!!'" SIGHUP		
 }
@@ -195,4 +198,3 @@ unlock $QQEDIR
 
 daemonazing $QQEDIR
 run $QQEDIR $REFFER
-
