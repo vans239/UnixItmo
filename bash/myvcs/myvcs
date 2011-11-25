@@ -1,7 +1,7 @@
 #!/bin/bash
 function isInit {
-	if [ -d .$1 ] ; then
-		return 1 
+	if [ -d .$1 ]  && [ -f .$1/version ] && [ -f .$1/last ]  ; then
+		return 1
 	fi
 	return 0
 }
@@ -20,12 +20,14 @@ function status {
 	isInit $1
 	now=$?
 	[ $now -ne 1 ] && echo "File haven't been initiated" && exit
-	
+
 	echo Checking status
 	if diff -u $1 .$1/last > /dev/null; then
-		echo Same files	
+		echo Same files
+		exit 0
 	else
 		echo Different files	
+		exit 1
 	fi
 }
 function diffFiles {
@@ -38,7 +40,7 @@ function commit {
 	isInit $1
 	now=$?
 	[ $now -ne 1 ] && echo "File haven't been initiated" && exit
-	
+
 	getVersion $1
 	now=$?
 	diff -u .$1/last $1 > .$1/$now.diff
@@ -50,10 +52,14 @@ function update {
 	isInit $1
 	now=$?
 	[ $now -ne 1 ] && echo "File haven't been initiated" && exit
-	
+
 	cp .$1/last $1
 	getVersion $1	
 	counter=$?
+	if [ $counter -lt $2 ] || [ $2 -lt 0 ] ; then
+		echo "There are no revision with this number"
+		exit
+	fi
 	while [ $counter -gt $2 ] ; do
 		let counter-=1
 		patch -R -u $1 .$1/$counter.diff > /dev/null	
