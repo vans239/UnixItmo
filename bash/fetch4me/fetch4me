@@ -1,5 +1,5 @@
 
-#!/bin/bash -e
+#!/bin/bash
 
 # $1 - lock file dir
 function lock(){
@@ -83,7 +83,9 @@ function downloadLink() {
 	else
 		`$GETELEMFUNC -c -q -P $downloadpath $2`
 	fi
-	if [ $? -ne 0 ]; then
+	isError=$?
+	if [ $isError -ne 0 ]; then
+		echo "Error: " `man wget | grep -x " *$isError .*\."` "in wget" >> $1/.status 
 		echo "Error: problem with processing $2 via $GETLEMFUNC to $downloadpath" >> $1/.status
 		exit 1
 	fi

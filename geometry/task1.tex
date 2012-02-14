@@ -1,0 +1,40 @@
+\documentclass[14pt]{article} % use larger type; default would be 10pt
+\usepackage[utf8]{inputenc} % set input encoding (not needed with XeLaTeX)
+\usepackage[english,russian]{babel}
+\usepackage{geometry} % to change the page dimensions
+\geometry{a4paper} % or letterpaper (US) or a5paper or....
+\usepackage{graphicx} % support the \includegraphics command and options
+\usepackage{amssymb,amsfonts,amsmath,mathtext,cite,enumerate,float} 
+\usepackage{indentfirst}
+
+\AtBeginDocument{\renewcommand{\thesection}{}}
+\AtBeginDocument{\renewcommand{\thesubsection}{}}
+
+\title{Task 1}
+\author{Ванслов Евгений}
+\date{}
+
+\begin{document}
+\maketitle
+\section{Поиск центра описанной окружности}
+
+Мы знаем, что: $R=\frac{abc}{4S}$.
+Также мы знаем формулу герона, поэтому можем посчитать $R$.
+Тогда центром описанной окружности является точка пересечения окружностей с радиусом $R$ из двух вершин (пусть $A,B$) такая, что $orient\triangle ABC= orient\triangle ABO$.  
+
+Второе решение лежит на википедии в разделе "Положение центра описанной окружности", его переписывать не хотелось)
+Суть решения та же, что было и на паре. (Строим высоту и сравниваем ее длину с длиной серединного перпендикуляра)
+
+\section{Проверка попадения точки в описанный круг}
+По первому заданию находим описанную окружность.
+Дальше делаем проверку попадения точки в круг.
+
+\begin{itemize}
+\itemСтроим любую прямую, пересекающую окружность в двух точках и проходящую через точку ( например, через центр окружности и точку) 
+\itemНаходим точки пересечения прямой с окружностью ( $M,N$)
+\item $return  (x_M \ge x_O \ge x_N   \&\&  y_M \ge y_O \ge y_N) || (x_M \le x_O \le x_N  \&\&  y_M \le y_O \le y_N) $
+\end{itemize}
+
+  
+
+\end{document}
