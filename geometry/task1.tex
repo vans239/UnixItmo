@@ -17,23 +17,46 @@
 \begin{document}
 \maketitle
 \section{Поиск центра описанной окружности}
+\begin{itemize}
+\item $O$ - центр
+\item $H_a$ -высота из точки A на BC
+\item $h_a$ -высота из точки O на BC
+\item $\alpha = \angle BAC$
+\end{itemize}
+$$\begin{cases} 
+	R=\frac{abc}{4S}=\frac{a}{2e\sin \alpha} \\
+	S=\frac{aH_a}{2}=\frac{bc\sin\alpha}{2} \\
+	\sin\alpha=\frac{|[\vec{b},\vec{c}]|}{|\vec{b}||\vec{c}|} \\
+\end{cases}$$
 
-Мы знаем, что: $R=\frac{abc}{4S}$.
-Также мы знаем формулу герона, поэтому можем посчитать $R$.
-Тогда центром описанной окружности является точка пересечения окружностей с радиусом $R$ из двух вершин (пусть $A,B$) такая, что $orient\triangle ABC= orient\triangle ABO$.  
-
-Второе решение лежит на википедии в разделе "Положение центра описанной окружности", его переписывать не хотелось)
-Суть решения та же, что было и на паре. (Строим высоту и сравниваем ее длину с длиной серединного перпендикуляра)
+$$R^2=h_a^2+(\frac{a}{2})^2$$
+$$\begin{cases} 
+	h_a=\frac{a}{2}\ctg \alpha \\
+	H_a=\frac{bc\sin\alpha}{a} \\
+\end{cases}
+\Rightarrow\frac{h_a}{H_a}=\frac{a^2\cos\alpha}{2bc\sin^2\alpha}$$
+$$O(\frac{a^2\cos\alpha}{2bc\sin^2\alpha},
+	\frac{b^2\cos\beta}{2ac\sin^2\beta},
+	\frac{c^2\cos\gamma}{2ab\sin^2\gamma})$$
 
 \section{Проверка попадения точки в описанный круг}
-По первому заданию находим описанную окружность.
-Дальше делаем проверку попадения точки в круг.
-
-\begin{itemize}
-\item $O$ - центр, $X$ - наша точка
-\item $return$ $dist( O, X) <= R $
-\end{itemize}
-
-  
-
+Уравнение плоскости, проходящей через 3 заданные точки.
+$$ A = 
+\begin{pmatrix}
+x & y & z & 1 \\
+x_1 & y_1 & z_1 & 1 \\
+x_2 & y_2 & z_2 & 1 \\
+x_3 & y_3 & z_3 & 1 \\
+\end{pmatrix}
+$$
+Если $det|A| <> 0$,то точка находится ниже/выше плоскости в пространстве. Тогда по теореме, доказанной на паре, для окружности будут выполняться те же условия.
+$$(x,y) <-> (x,y, x^2 + y^2)$$
+$$
+\begin{pmatrix}
+x & y & x^2 + y^2 & 1 \\
+x_1 & y_1 & x_1^2 + y_1^2 & 1 \\
+x_2 & y_2 & x_2^2 + y_2^2 & 1 \\
+x_3 & y_3 & x_3^2 + y_3^2 & 1 \\
+\end{pmatrix}
+$$
 \end{document}
