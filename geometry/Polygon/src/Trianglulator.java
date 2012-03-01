@@ -47,11 +47,22 @@ public class Trianglulator {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        MonotonePolygon polygon = new InputStreamPolygon(new BufferedInputStream(new FileInputStream("input2.txt")));
+        MonotonePolygon polygon = new InputStreamPolygon(new BufferedInputStream(new FileInputStream("tests/input2.txt")));
+//        MonotonePolygon polygon = new InputStreamPolygon(System.in);
+
+        Map<Point,Integer> verticles = new HashMap<Point, Integer>();
+        int i = 1;
+        for(Point point : polygon.getPoints()){
+            verticles.put(point, i++);
+        }
+
         Trianglulator trianglulator = new Trianglulator();
         List<Triangle> triangles = trianglulator.triangulate(polygon);
+
         for(Triangle triangle : triangles){
-            System.out.println(triangle);
+            System.out.println(verticles.get(triangle.points[0]) + " "
+                    + verticles.get(triangle.points[1]) + " "
+                    + verticles.get(triangle.points[2]));
         }
     }
 }
