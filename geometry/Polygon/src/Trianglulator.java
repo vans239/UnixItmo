@@ -47,8 +47,8 @@ public class Trianglulator {
     }
 
     public static void main(String[] args) throws FileNotFoundException {
-        MonotonePolygon polygon = new InputStreamPolygon(new BufferedInputStream(new FileInputStream("tests/input2.txt")));
-//        MonotonePolygon polygon = new InputStreamPolygon(System.in);
+//        MonotonePolygon polygon = new InputStreamPolygon(new BufferedInputStream(new FileInputStream("tests/input2.txt")));
+        MonotonePolygon polygon = new InputStreamPolygon(System.in);
 
         Map<Point,Integer> verticles = new HashMap<Point, Integer>();
         int i = 1;

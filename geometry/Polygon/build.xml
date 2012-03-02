@@ -15,9 +15,7 @@
     <target name="compile" depends="init"
             description="compile the source ">
         <javac srcdir="${src}" destdir="${build}"/>
-        <copy todir="${build}/tests" overwrite="true">
-            <fileset dir="tests"/>
-        </copy>
+
     </target>
 
     <target name="dist" depends="compile"
@@ -25,9 +23,11 @@
         <jar jarfile="${dist}/Polygon.jar" basedir="${build}">
             <manifest>
                 <attribute name="Main-Class" value="Trianglulator"/>
-                <attribute name="Class-Path" value="tests/input2.xml"/>
             </manifest>
         </jar>
+        <copy todir="${dist}/tests" overwrite="true">
+            <fileset dir="tests"/>
+        </copy>
     </target>
 
     <target name="clean"
