@@ -1,6 +1,6 @@
 <project name="Polygon" default="dist" basedir=".">
     <description>
-        Polygon
+        ru.itmo.govnokod.geometry.triangulator.Polygon
     </description>
     <!-- set global properties for this build -->
     <property name="src" location="src"/>
@@ -22,11 +22,13 @@
             description="generate the distribution">
         <jar jarfile="${dist}/Polygon.jar" basedir="${build}">
             <manifest>
-                <attribute name="Main-Class" value="Trianglulator"/>
+                <attribute name="Main-Class" value="ru.itmo.govnokod.geometry.triangulator.Trianglulator"/>
             </manifest>
         </jar>
-        <copy todir="${dist}/tests" overwrite="true">
-            <fileset dir="tests"/>
+        <copy todir="${dist}/test" overwrite="true">
+            <fileset dir="test">
+                <include name="**/*.txt"/>
+            </fileset>
         </copy>
     </target>
 
