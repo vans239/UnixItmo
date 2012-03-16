@@ -1,10 +1,4 @@
-package ru.itmo.govnokod.geometry.triangulator;/*
-*  Date: 28.02.12
-*  Time: 19:24
-*  Author:
-*     Vanslov Evgeny
-*     vans239@gmail.com
-*/
+package ru.itmo.govnokod.geometry.model;
 
 public class Triangle {
     public final Point points[] = new Point[3];

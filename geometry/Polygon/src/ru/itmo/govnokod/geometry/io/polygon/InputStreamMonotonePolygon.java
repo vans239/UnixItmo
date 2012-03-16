@@ -1,4 +1,4 @@
-package ru.itmo.govnokod.geometry.triangulator.impl;
+package ru.itmo.govnokod.geometry.io.polygon;
 
 /*
 *  Date: 28.02.12
@@ -8,30 +8,18 @@ package ru.itmo.govnokod.geometry.triangulator.impl;
 *     vans239@gmail.com
 */
 
-import ru.itmo.govnokod.geometry.triangulator.MonotonePolygon;
-import ru.itmo.govnokod.geometry.triangulator.Point;
+import ru.itmo.govnokod.geometry.MonotonePolygon;
+import ru.itmo.govnokod.geometry.model.Point;
 
 import java.io.InputStream;
 import java.util.*;
 
-public class InputStreamPolygon implements MonotonePolygon {
+public class InputStreamMonotonePolygon implements MonotonePolygon {
     private final List<Point> points;
     private final Map<Point, MonotonePolygon.PointType> pointTypes = new HashMap<Point, MonotonePolygon.PointType>();
 
-    public InputStreamPolygon(InputStream is){
-        Scanner scanner = new Scanner(is);
-        int count = scanner.nextInt();
-        points = new ArrayList<Point>(count);
-        scanner.nextLine();
-        for(int i = 0; i < count; ++i){
-            String line = scanner.nextLine();
-            line = line.replaceAll("[(),]", " ");
-            line = line.replaceAll(" +", " ");
-            line = line.replaceAll("^ ", "");
-            String values[] = line.split(" ");
-            Point point = new Point(Long.valueOf(values[0]), Long.valueOf(values[1]));
-            points.add(point);
-        }
+    public InputStreamMonotonePolygon(final InputStream is){
+        points = new InputStreamPolygon(is).getPoints();
         initPointTypes();
     }
 
@@ -52,11 +40,10 @@ public class InputStreamPolygon implements MonotonePolygon {
     }
 
     public List<Point> getPoints(){
-        return points;
+        return new ArrayList<Point>(points);
     }
 
-
     public MonotonePolygon.PointType getPointType(Point point) {
-        return pointTypes.get(point);  //To change body of implemented methods use File | Settings | File Templates.
+        return pointTypes.get(point);
     }
 }

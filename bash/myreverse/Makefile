@@ -5,4 +5,4 @@ myreverse.o: myreverse.c
 	gcc -c myreverse.c
 
 clean:
-	rm -f *.o main
+	rm -f *.o myreverse
