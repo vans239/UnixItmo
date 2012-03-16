@@ -37,9 +37,10 @@ int readBuff(){
 	int in = fileno(stdin);
 	int readCount = read(in, buff + sizeof(char) * size, k - size);
 	size = size + readCount;
-	if(size != k){
-		eof = 1;
-	} else if(readCount == -1){
+	//if(size != k){
+	//	eof = 1;
+	//} else 
+	if(readCount == -1){
 		return -1;	
 	}
 	return 1;
