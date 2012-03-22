@@ -1,6 +1,6 @@
 <project name="Polygon" default="dist" basedir=".">
     <description>
-        ru.itmo.govnokod.geometry.Polygon
+        ru.itmo.govnokod.geometry.model.Polygon
     </description>
     <!-- set global properties for this build -->
     <property name="src" location="src"/>
@@ -21,10 +21,11 @@
             description="generate the distribution">
         <jar jarfile="${dist}/Polygon.jar" basedir="${build}">
             <manifest>
-                <!--<attribute name="Main-Class" value="ru.itmo.govnokod.geometry.Trianglulator"/>-->
+                <!--<attribute name="Main-Class" value="ru.itmo.govnokod.geometry.MonotneTrianglulatorlulator"/>-->
                 <attribute name="Main-Class" value="ru.itmo.govnokod.geometry.swing.App"/>
             </manifest>
         </jar>
+        <!--deprecated-->
         <copy todir="${dist}/test" overwrite="true">
             <fileset dir="test">
                 <include name="**/*.txt"/>
@@ -32,17 +33,17 @@
         </copy>
     </target>
 
+    <target name="test" depends="compile"
+            description="generate the distribution for test">
+        <jar jarfile="${dist}/Polygon.jar" basedir="${build}">
+            <manifest>
+                <attribute name="Main-Class" value="ru.itmo.govnokod.geometry.validator.CheckPointsHullValidator"/>
+            </manifest>
+        </jar>
+    </target>
     <target name="clean"
             description="clean up">
         <delete dir="${build}"/>
         <delete dir="${dist}"/>
     </target>
-
-    <target name="run"
-            description="run">
-    </target>
-    <target name="all"
-            depends="init, compile, dist, run"
-            description="build, compile, run"/>
-
 </project>

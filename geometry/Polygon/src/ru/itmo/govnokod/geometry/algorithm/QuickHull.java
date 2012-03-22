@@ -1,7 +1,6 @@
 package ru.itmo.govnokod.geometry.algorithm;
 
-import ru.itmo.govnokod.geometry.Hull;
-import ru.itmo.govnokod.geometry.Polygon;
+import ru.itmo.govnokod.geometry.model.Polygon;
 import ru.itmo.govnokod.geometry.Vector;
 import ru.itmo.govnokod.geometry.model.Point;
 import ru.itmo.govnokod.geometry.model.SimplePolygon;
@@ -15,14 +14,14 @@ public class QuickHull implements Hull {
     private List<Point> result = new ArrayList<Point>();
     private Set<Point> added;
 
-    public Polygon hull(final List<Point> points) {
+    public Polygon hull(final Set<Point> points) {
         added = new HashSet<Point>();
         result.clear();
         hullPart(points, new Vector(new Point(1, 0)));
         return new SimplePolygon(result);
     }
 
-    private void hullPart(final List<Point> points, final Vector vector) {
+    private void hullPart(final Set<Point> points, final Vector vector) {
         if (points.isEmpty()) {
             return;
         }
@@ -31,10 +30,10 @@ public class QuickHull implements Hull {
         final Point down = Collections.max(points, new PointComparator(vector));
         final Point up = Collections.min(points, new PointComparator(vector));
 
-        final List<Point> upLeft = choose(points, left, up);
-        final List<Point> upRight = choose(points, up, right);
-        final List<Point> downRight = choose(points, right, down);
-        final List<Point> downLeft = choose(points, down, left);
+        final Set<Point> upLeft = choose(points, left, up);
+        final Set<Point> upRight = choose(points, up, right);
+        final Set<Point> downRight = choose(points, right, down);
+        final Set<Point> downLeft = choose(points, down, left);
 
         addToAnswer(left);
         hullPart(upLeft, new Vector(left, up));
@@ -64,8 +63,8 @@ public class QuickHull implements Hull {
         }
     }
 
-    private List<Point> choose(final List<Point> points, final Point a, final Point b) {
-        final List<Point> result = new ArrayList<Point>();
+    private Set<Point> choose(final Set<Point> points, final Point a, final Point b) {
+        final Set<Point> result = new HashSet<Point>();
         if (a.equals(b))
             return result;
         for (final Point point : points) {

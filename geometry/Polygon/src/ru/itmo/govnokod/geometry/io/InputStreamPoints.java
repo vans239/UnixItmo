@@ -1,22 +1,22 @@
 package ru.itmo.govnokod.geometry.io;
 
+import ru.itmo.govnokod.geometry.model.SetOfPoints;
 import ru.itmo.govnokod.geometry.model.Point;
 
 import java.io.InputStream;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
+import java.util.*;
 
 /**
  * @author Vanslov Evgeny (evans@yandex-team.ru)
  */
-public class InputStreamPoints {
-    private final List<Point> points;
+
+public class InputStreamPoints implements SetOfPoints {
+    private final Set<Point> points;
 
     public InputStreamPoints(final InputStream is){
         final Scanner scanner = new Scanner(is);
         int count = scanner.nextInt();
-        points = new ArrayList<Point>(count);
+        points = new HashSet<Point>(count);
         scanner.nextLine();
         for(int i = 0; i < count; ++i){
             String line = scanner.nextLine();
@@ -29,7 +29,7 @@ public class InputStreamPoints {
         }
     }
 
-    public List<Point> getPoints(){
-        return new ArrayList<Point>(points);
+    public Set<Point> getPoints(){
+        return new HashSet<Point>(points);
     }
 }

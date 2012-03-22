@@ -6,6 +6,7 @@ package ru.itmo.govnokod.geometry;/*
 *     vans239@gmail.com
 */
 
+import ru.itmo.govnokod.geometry.model.MonotonePolygon;
 import ru.itmo.govnokod.geometry.model.Point;
 
 import java.util.LinkedList;

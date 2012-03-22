@@ -1,10 +1,4 @@
-package ru.itmo.govnokod.geometry;/*
-*  Date: 28.02.12
-*  Time: 18:58
-*  Author:
-*     Vanslov Evgeny
-*     vans239@gmail.com
-*/
+package ru.itmo.govnokod.geometry.model;
 
 import ru.itmo.govnokod.geometry.model.Point;
 

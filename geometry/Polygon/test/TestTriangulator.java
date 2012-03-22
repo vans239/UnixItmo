@@ -6,11 +6,11 @@
 *     vans239@gmail.com
 */
 
-import ru.itmo.govnokod.geometry.MonotonePolygon;
+import ru.itmo.govnokod.geometry.algorithm.MonotneTrianglulator;
+import ru.itmo.govnokod.geometry.model.MonotonePolygon;
 import ru.itmo.govnokod.geometry.io.polygon.InputStreamMonotonePolygon;
 import ru.itmo.govnokod.geometry.model.Point;
 import ru.itmo.govnokod.geometry.model.Triangle;
-import ru.itmo.govnokod.geometry.Trianglulator;
 
 import java.io.*;
 import java.util.HashMap;
@@ -35,7 +35,7 @@ public class TestTriangulator {
                 verticles.put(point, i++);
             }
 
-            Trianglulator trianglulator = new Trianglulator();
+            MonotneTrianglulator trianglulator = new MonotneTrianglulator();
             List<Triangle> triangles = trianglulator.triangulate(polygon);
 
             for (Triangle triangle : triangles) {

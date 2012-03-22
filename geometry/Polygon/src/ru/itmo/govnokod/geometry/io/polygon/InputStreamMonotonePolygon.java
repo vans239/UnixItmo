@@ -8,7 +8,7 @@ package ru.itmo.govnokod.geometry.io.polygon;
 *     vans239@gmail.com
 */
 
-import ru.itmo.govnokod.geometry.MonotonePolygon;
+import ru.itmo.govnokod.geometry.model.MonotonePolygon;
 import ru.itmo.govnokod.geometry.model.Point;
 
 import java.io.InputStream;

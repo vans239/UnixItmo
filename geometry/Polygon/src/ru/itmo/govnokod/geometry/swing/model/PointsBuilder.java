@@ -34,7 +34,7 @@ public class PointsBuilder implements DataBuilder{
         }
     }
     
-    public List<Point> getPoints(){
-        return new ArrayList<Point>(points);
+    public Set<Point> getPoints(){
+        return new HashSet<Point>(points);
     }
 }

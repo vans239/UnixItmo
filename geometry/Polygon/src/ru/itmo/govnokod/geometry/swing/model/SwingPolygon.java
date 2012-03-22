@@ -1,8 +1,8 @@
 package ru.itmo.govnokod.geometry.swing.model;
 
 
+import ru.itmo.govnokod.geometry.model.Polygon;
 import ru.itmo.govnokod.geometry.swing.Drawable;
-import ru.itmo.govnokod.geometry.Polygon;
 import ru.itmo.govnokod.geometry.model.Point;
 
 import java.awt.Graphics2D;

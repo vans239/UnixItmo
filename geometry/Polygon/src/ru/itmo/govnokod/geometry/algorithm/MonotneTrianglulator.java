@@ -1,4 +1,4 @@
-package ru.itmo.govnokod.geometry;
+package ru.itmo.govnokod.geometry.algorithm;
 
 /*
 *  Date: 28.02.12
@@ -8,6 +8,8 @@ package ru.itmo.govnokod.geometry;
 *     vans239@gmail.com
 */
 
+import ru.itmo.govnokod.geometry.model.MonotonePolygon;
+import ru.itmo.govnokod.geometry.Util;
 import ru.itmo.govnokod.geometry.io.polygon.InputStreamMonotonePolygon;
 import ru.itmo.govnokod.geometry.model.Point;
 import ru.itmo.govnokod.geometry.model.Triangle;
@@ -15,7 +17,7 @@ import ru.itmo.govnokod.geometry.model.Triangle;
 import java.io.FileNotFoundException;
 import java.util.*;
 
-public class Trianglulator {
+public class MonotneTrianglulator implements Triangulator {
     public List<Triangle> triangulate(MonotonePolygon polygon) {
         final ArrayList<Point> points = new ArrayList<Point>(polygon.getPoints());
         Collections.sort(points);
@@ -60,7 +62,7 @@ public class Trianglulator {
             verticles.put(point, i++);
         }
 
-        final Trianglulator trianglulator = new Trianglulator();
+        final MonotneTrianglulator trianglulator = new MonotneTrianglulator();
         final List<Triangle> triangles = trianglulator.triangulate(polygon);
 
         for(final Triangle triangle : triangles){

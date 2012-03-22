@@ -1,7 +1,5 @@
 package ru.itmo.govnokod.geometry.model;
 
-import ru.itmo.govnokod.geometry.Polygon;
-
 import java.util.ArrayList;
 import java.util.List;
 

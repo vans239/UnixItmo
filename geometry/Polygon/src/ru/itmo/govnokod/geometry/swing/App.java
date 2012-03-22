@@ -1,7 +1,7 @@
 package ru.itmo.govnokod.geometry.swing;
 
-import ru.itmo.govnokod.geometry.Hull;
-import ru.itmo.govnokod.geometry.Polygon;
+import ru.itmo.govnokod.geometry.algorithm.Hull;
+import ru.itmo.govnokod.geometry.model.Polygon;
 import ru.itmo.govnokod.geometry.algorithm.QuickHull;
 import ru.itmo.govnokod.geometry.io.polygon.InputStreamPolygon;
 import ru.itmo.govnokod.geometry.model.Point;
@@ -144,7 +144,7 @@ public class App extends JPanel {
         public void run() {
             final Hull hull = new QuickHull();
             try {
-                final ru.itmo.govnokod.geometry.Polygon polygon = hull.hull(pointsBuilder.getPoints());
+                final Polygon polygon = hull.hull(pointsBuilder.getPoints());
                 polygonArea.getDrawer().dropToDraw();
                 polygonArea.getDrawer().addPolygon(polygon);
                 append("Polygon: " + polygon.getPoints().toString());
@@ -157,8 +157,8 @@ public class App extends JPanel {
 
         public void load(final File file) {
             try {
-                final Polygon polygon = new InputStreamPolygon(new FileInputStream(file));
-                pointsBuilder.dropBuilder();
+                final ru.itmo.govnokod.geometry.model.Polygon polygon = new InputStreamPolygon(new FileInputStream(file));
+                drop();
                 for (final Point point : polygon.getPoints()) {
                     pointsBuilder.addPoint(point);
                 }

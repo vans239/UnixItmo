@@ -1,4 +1,4 @@
-package ru.itmo.govnokod.geometry;
+package ru.itmo.govnokod.geometry.model;
 
 /*
 *  Date: 28.02.12
@@ -8,9 +8,7 @@ package ru.itmo.govnokod.geometry;
 *     vans239@gmail.com
 */
 
-import ru.itmo.govnokod.geometry.model.Point;
-
-public interface MonotonePolygon extends Polygon{
+public interface MonotonePolygon extends Polygon {
     PointType getPointType(Point point);
     enum PointType{
         UP,
