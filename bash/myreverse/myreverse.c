@@ -43,6 +43,10 @@ int readBuff(){
 	if(readCount == -1){
 		return -1;	
 	}
+	if(readCount == 0){
+		eof = 1;
+		return -1;
+	}
 	return 1;
 }
 
